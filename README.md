@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # api-students
 API to 'Golang do zero' course students 
 
@@ -16,3 +17,7 @@ struct student
 - Active
 
 
+=======
+# API-students-
+API- to ' Golang do zero ' course students
+>>>>>>> d77e8bdc1bc3478afb1720a71013f5fb7520f580
