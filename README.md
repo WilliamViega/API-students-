@@ -21,3 +21,19 @@ struct student
 # API-students-
 API- to ' Golang do zero ' course students
 >>>>>>> d77e8bdc1bc3478afb1720a71013f5fb7520f580
+# API Students
+
+Uma API simples em Go usando Echo para listar estudantes.
+
+## 🚀 Como rodar
+
+```bash
+go run main.go 
+
+📦 Tecnologias
+Go
+
+Echo framework 
+
+📄 Autor
+William Viegas
