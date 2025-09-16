@@ -1,21 +1,31 @@
-<<<<<<< HEAD
-# api-students
-API to 'Golang do zero' course students 
+# 🧠 API Students
 
-Routes:
-- GET /students - List all students
-- POST /alunos - Creat students
-- GET /students/:id - get infos from a specific student
-- PUT /students/:id - Update student
-- DELETE /students/:id - Delete student 
+API desenvolvida em Go para o curso **"Golang do Zero"** ministrado por **Stephanie Cardoso** (Globo).  
+Essa aplicação gerencia estudantes usando o framework Echo e banco de dados SQLite.
 
-struct student 
-- Name (string)
-- Cpf (int)
-- Email (string)
-- Age (int)
-- Active (bool)
+---
 
+## 📚 Rotas disponíveis
+
+- `GET /students` — Lista todos os estudantes
+- `POST /students` — Cria um novo estudante
+- `GET /students/:id` — Busca um estudante específico por ID
+- `PUT /students/:id` — Atualiza o nome de um estudante
+- `DELETE /students/:id` — Remove um estudante
+- `GET /students?active=<true/false>` — Filtra estudantes ativos/inativos
+
+---
+
+## 🧬 Estrutura do estudante
+
+```go
+type Student struct {
+    Nome   string
+    CPF    int
+    Email  string
+    Idade  int
+    Active bool
+}
 
 =======
 # API-students-
@@ -23,9 +33,6 @@ API- to ' Golang do zero ' course students
 >>>>>>> d77e8bdc1bc3478afb1720a71013f5fb7520f580
 # API Students
 
-# 🧠 API Students
-
-Uma API simples em Go usando o framework Echo para gerenciar estudantes. Ideal para estudos, testes de integração e como base para projetos maiores.
 
 ---
 
@@ -48,15 +55,15 @@ go run main.go
  
 
 📦 Tecnologias
-Go 
+Go
 
+Echo Framework
 
-SQLite
+SQLite com driver modernc.org/sqlite (100% Go, sem CGO)
 
-Driver: modernc.org/sqlite (100% Go, sem CGO)
-
-Echo framework 
+Swagger para documentação interativa dos endpoints
 
 📄 Autor
-William Viegas 
+Desenvolvido por William Viegas 
+Baseado no curso de Stephanie Cardoso, desenvolvedora na Globo 🚀
 

@@ -1,0 +1,129 @@
+definitions:
+  db.Student:
+    properties:
+      cpf:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      idade:
+        type: integer
+      nome:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /students:
+    get:
+      description: Retorna todos os estudantes cadastrados
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/db.Student'
+            type: array
+      summary: Lista todos os estudantes
+      tags:
+      - estudantes
+    post:
+      consumes:
+      - application/json
+      description: Adiciona um estudante ao banco de dados
+      parameters:
+      - description: Dados do estudante
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/db.Student'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Cria um novo estudante
+      tags:
+      - estudantes
+  /students/{id}:
+    delete:
+      description: Deleta um estudante do banco de dados
+      parameters:
+      - description: ID do estudante
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Remove um estudante
+      tags:
+      - estudantes
+    get:
+      description: Retorna os dados de um estudante específico
+      parameters:
+      - description: ID do estudante
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.Student'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Busca um estudante por ID
+      tags:
+      - estudantes
+    put:
+      consumes:
+      - application/json
+      description: Modifica o nome de um estudante existente
+      parameters:
+      - description: ID do estudante
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Novo nome do estudante
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/db.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Atualiza o nome de um estudante
+      tags:
+      - estudantes
+swagger: "2.0"

@@ -2,14 +2,13 @@ package db
 
 import (
     "database/sql"
-    "github.com/rs/zerolog"
-    "github.com/rs/zerolog/log"
+    "errors"
     "os"
 
+    "github.com/rs/zerolog"
+    "github.com/rs/zerolog/log"
     _ "modernc.org/sqlite"
 )
-
-var DB *sql.DB
 
 type Student struct {
     ID    int    `json:"id"`
@@ -19,11 +18,11 @@ type Student struct {
     Idade int    `json:"idade"`
 }
 
+var DB *sql.DB
+
 func Init() {
-    // Configura saída legível no terminal
     log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
-    // Garante que a pasta exista
     err := os.MkdirAll("students", os.ModePerm)
     if err != nil {
         log.Fatal().Err(err).Msg("Erro ao criar pasta")
@@ -36,7 +35,6 @@ func Init() {
 
     log.Info().Msg("Banco de dados SQLite inicializado com sucesso")
 
-    // Cria a tabela se não existir
     _, err = DB.Exec(`
         CREATE TABLE IF NOT EXISTS students (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -84,33 +82,34 @@ func GetAllStudents() ([]Student, error) {
     return students, nil
 }
 
-func GetStudentByID(id string) (Student, error) {
+func GetStudentByID(id int) (Student, error) {
     var s Student
     err := DB.QueryRow("SELECT id, nome, cpf, email, idade FROM students WHERE id = ?", id).
         Scan(&s.ID, &s.Nome, &s.CPF, &s.Email, &s.Idade)
     if err != nil {
-        log.Error().Err(err).Msgf("Estudante com ID %s não encontrado", id)
+        log.Error().Err(err).Msgf("Estudante com ID %d não encontrado", id)
+        return s, errors.New("Aluno não encontrado")
     }
-    return s, err
+    return s, nil
 }
 
-func UpdateStudent(id string, nome string) error {
+func UpdateStudent(id int, nome string) error {
     _, err := DB.Exec("UPDATE students SET nome = ? WHERE id = ?", nome, id)
     if err != nil {
-        log.Error().Err(err).Msgf("Erro ao atualizar estudante com ID %s", id)
+        log.Error().Err(err).Msgf("Erro ao atualizar estudante com ID %d", id)
     } else {
-        log.Info().Msgf("Estudante com ID %s atualizado para nome: %s", id, nome)
+        log.Info().Msgf("Estudante com ID %d atualizado para nome: %s", id, nome)
     }
     return err
 }
 
-func DeleteStudent(id string) error {
+func DeleteStudent(id int) error {
     _, err := DB.Exec("DELETE FROM students WHERE id = ?", id)
     if err != nil {
-        log.Error().Err(err).Msgf("Erro ao deletar estudante com ID %s", id)
+        log.Error().Err(err).Msgf("Erro ao deletar estudante com ID %d", id)
     } else {
-        log.Info().Msgf("Estudante com ID %s deletado com sucesso", id)
+        log.Info().Msgf("Estudante com ID %d deletado com sucesso", id)
     }
     return err
 }
-  
+ 
