@@ -61,7 +61,14 @@ Echo Framework
 
 SQLite com driver modernc.org/sqlite (100% Go, sem CGO)
 
-Swagger para documentação interativa dos endpoints
+Swagger para documentação interativa dos endpoints 
+
+## 📸 Exemplo de uso
+
+
+Abaixo, uma prévia da API funcionando via Swagger:
+
+![Swagger interface](assets/print.jpeg)
 
 📄 Autor
 Desenvolvido por William Viegas 
